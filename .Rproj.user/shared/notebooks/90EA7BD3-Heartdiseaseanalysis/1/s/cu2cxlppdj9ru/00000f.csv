@@ -1,0 +1,6 @@
+"0","auc <- performance(pred, ""auc"")@y.values[[1]]"
+"0","print(paste(""AUC:"", round(auc, 4)))"
+"1","[1]"
+"1"," ""AUC: 0.8194"""
+"1","
+"

@@ -1,0 +1,116 @@
+---
+title: 'STAT 7240: Homework 2'
+author: "[Your Name]"
+date: "September 25, 2024"
+output: html_document #change to html_document for html outputs (if pdf formatting is bad)
+editor_options: 
+  chunk_output_type: console
+---
+
+### **Instructions**
+1. You must submit both your **.Rmd** and "knitted" **.pdf** (or **.html**) files to the appropriate Assignments Dropbox folder on D2L.<br />
+2. This assignment is due **11:59pm EST** on the due date listed above.<br />
+3. You are allowed to work together on this assignment. If applicable, list any classmates you worked with here: **[insert classmates]**<br/>
+
+### **Data**
+In this assignment, you will be working with the following datasets:
+
+  * *heart_train.csv* - uploaded on D2L Assignment 
+  * *heart_test.csv* - uploaded on D2L Assignment 
+  
+
+```{r initiatePackages, message=FALSE}
+# Packages used in the assignment (make sure they are installed before attempting to load them)
+library(tidyverse)
+library(rpart)
+library(rpart.plot)
+library(ROCR)
+library(caret)
+library(ranger)
+```
+
+### **Problem Set**
+
+1. (2 points) Read in the **heart_train.csv** data as a data-frame. Conduct a quick summary inspection of your data (i.e., check for number of attributes, attribute types, if there are any missing values)
+```{r}
+
+```
+
+2. (2 points) The "target" field refers to whether or not a patient has heart disease (target = 1) or doesn't have heart disease (target = 0). How many people have heart disease? What percentage of people have heart disease? Is this a balanced or imbalanced classification problem?
+```{r}
+
+```
+
+3. (2 points) Convert the *target* attribute to a factor, with the first level being *"Yes"* which corresponds to numerical value 1 and the second level being *"No"* which corresponds to the numerical value 0. *Hint:* You can either convert the existing target field or create a new target field and drop the old one ... just make sure your final data-frame only has one target-related variable and that your factor levels are as you intended them to be.
+```{r}
+
+```
+
+4. (8 points) Build an `rpart` decision tree on your cleaned data-set that predicts whether or not a patient has heart disease ("Yes" or "No). Prune this tree using the best resulting complexity parameter (cp). Use `rpart.plot` to show your pruned tree using whatever `rpart.pot` options you think best illustrate the tree. **Note:** use `set.seed(2)` as the random number seed prior to building your `rpart` model (already included in code below). 
+```{r}
+set.seed(2)
+
+```
+
+
+5. (2 points) Run the command `?rpart.control`. This is a list of options that can be passed into your `rpart` model (i.e., run `?rpart` and scroll down to 'control'). Based on your results from previous question, are there any parameter(s) that you would consider changing in `rpart.control`? Explain your answer. **Note:** Do NOT re-run your model ... I just want to see if you think any of the controls should be changed. 
+```{r}
+
+```
+
+
+6. (2 points) From an Exploratory Data Analysis (EDA) perspective, what are some of the key features and rules in your decision tree? What do you think these features mean? *Hint:* It's okay to not know the exact definitions of these variables ... I'm just looking to see how you rationalize what they likely could be.
+```{r}
+
+```
+
+
+7. (10 points) Read in the **heart_test.csv** data, and convert the target feature to have the same factor names and levels as your training data-set. Then, use your pruned decision tree to predict the target classifications in your test data. Then, create a confusion matrix from the results of the test predictions (i.e., compare your predicted classifications versus the actual classifications in test sample). How accurate is your pruned model on the test sample? *Reminder:* PAY ATTENTION to your factor level names and order during each step of the process! 
+```{r}
+
+```
+
+
+8. (2 points) Does your pruned decision tree model have more False Positives or more False Negatives on the test sample? Here, "Yes" is considered a "positive" result (i.e., the patient has heart disease). If you had to choose, would you rather have more False Positives or False Negatives in this context? Explain. 
+```{r}
+
+```
+
+
+9. (8 points) Using **ggplot**, create an ROC curve using your pruned decision tree on the test sample. Make sure your plot has a title, appropriately labeled axes, and a diagonal line representing a "random" classifier. *Hint:* Again, pay attention to your factor levels and order in which they're displayed. 
+```{r}
+
+```
+
+
+10. (2 points) Find the AUC of your ROC curve. Print this value 
+```{r}
+
+```
+
+
+11. (5 points) Using **ggplot**, plot a graph of Accuracy (y-axis) versus Cutoff (x-axis) for your pruned tree on the test sample. What do you think this Accuracy vs. Cutoff graph is describing? Explain. *Hint:* We did not discuss this chart in class. Look at `?ROCR::performance` and look at "measure" and "x.measure".  
+```{r}
+
+```
+
+
+12. (15 points) Tune a random forest model on your cleaned training sample (i.e., correct factors as targets) using the `caret` package. You should use the following training controls: method - `ranger`; resampling - **10-fold cross-validation**; variable importance - **improvement in gini impurity**; class probabilities - **return these**.  You will perform the following tasks as part of this training process:
+
+  * Specify hyperparameters of interest for the `ranger` model
+  * Create a tuning grid of appropriate values for the hyperparameters (*Note*: for **splitrule**, only use "gini")
+  * Select an appropriate evaluation metric and explain your choice 
+  * Train the models (*Note*: use a random number seed of 2 prior to training ... `set.seed(2)`)
+  * Identify the best performing model based on your evaluation criteria
+  * Return the hyperparameter values associated with the best performing model
+  * Using your best model, predict **classes and probabilities** on the cleaned test sample (i.e., correct factors as target)
+
+```{r}
+
+```
+
+Bonus. (2 points) Compare the accuracy of your tuned Random Forest model to your pruned Decision Tree on the test sample.
+```{r}
+
+```
+

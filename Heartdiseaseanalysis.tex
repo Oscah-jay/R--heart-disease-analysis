@@ -1,0 +1,529 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={STAT 7240: Homework 2},
+  pdfauthor={{[}Your Name{]}},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{STAT 7240: Homework 2}
+\author{{[}Your Name{]}}
+\date{September 25, 2024}
+
+\begin{document}
+\maketitle
+
+\subsection{Load Required Libraries}\label{load-required-libraries}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(tidyverse)}
+\FunctionTok{library}\NormalTok{(rpart)}
+\FunctionTok{library}\NormalTok{(rpart.plot)}
+\FunctionTok{library}\NormalTok{(ROCR)}
+\FunctionTok{library}\NormalTok{(caret)}
+\FunctionTok{library}\NormalTok{(ranger)}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{Problem Set}\label{problem-set}
+
+\subsubsection{Question 1 (2 points)}\label{question-1-2-points}
+
+Read in the heart\_train.csv data as a data-frame. Conduct a quick
+summary inspection of your data.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{heart\_train }\OtherTok{\textless{}{-}} \FunctionTok{read.csv}\NormalTok{(}\StringTok{"heart\_train.csv"}\NormalTok{)}
+
+\CommentTok{\# Summary inspection}
+\FunctionTok{str}\NormalTok{(heart\_train)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 'data.frame':    243 obs. of  14 variables:
+##  $ age     : int  41 56 57 57 56 44 52 57 54 48 ...
+##  $ sex     : int  0 1 0 1 0 1 1 1 1 0 ...
+##  $ cp      : int  1 1 0 0 1 1 2 2 0 2 ...
+##  $ trestbps: int  130 120 120 140 140 120 172 150 140 130 ...
+##  $ chol    : int  204 236 354 192 294 263 199 168 239 275 ...
+##  $ fbs     : int  0 0 0 0 0 0 1 0 0 0 ...
+##  $ restecg : int  0 1 1 1 0 1 1 1 1 1 ...
+##  $ thalach : int  172 178 163 148 153 173 162 174 160 139 ...
+##  $ exang   : int  0 0 1 0 0 0 0 0 0 0 ...
+##  $ oldpeak : num  1.4 0.8 0.6 0.4 1.3 0 0.5 1.6 1.2 0.2 ...
+##  $ slope   : int  2 2 2 1 1 2 2 2 2 2 ...
+##  $ ca      : int  0 0 0 0 0 0 0 0 0 0 ...
+##  $ thal    : int  2 2 2 1 2 3 3 2 2 2 ...
+##  $ target  : int  1 1 1 1 1 1 1 1 1 1 ...
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{summary}\NormalTok{(heart\_train)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##       age             sex               cp            trestbps    
+##  Min.   :29.00   Min.   :0.0000   Min.   :0.0000   Min.   : 94.0  
+##  1st Qu.:48.50   1st Qu.:0.0000   1st Qu.:0.0000   1st Qu.:120.0  
+##  Median :56.00   Median :1.0000   Median :1.0000   Median :130.0  
+##  Mean   :54.76   Mean   :0.6708   Mean   :0.9383   Mean   :131.7  
+##  3rd Qu.:61.00   3rd Qu.:1.0000   3rd Qu.:2.0000   3rd Qu.:140.0  
+##  Max.   :77.00   Max.   :1.0000   Max.   :3.0000   Max.   :192.0  
+##       chol            fbs            restecg          thalach     
+##  Min.   :131.0   Min.   :0.0000   Min.   :0.0000   Min.   : 71.0  
+##  1st Qu.:211.5   1st Qu.:0.0000   1st Qu.:0.0000   1st Qu.:137.5  
+##  Median :240.0   Median :0.0000   Median :1.0000   Median :154.0  
+##  Mean   :246.8   Mean   :0.1523   Mean   :0.5185   Mean   :150.1  
+##  3rd Qu.:273.5   3rd Qu.:0.0000   3rd Qu.:1.0000   3rd Qu.:166.0  
+##  Max.   :564.0   Max.   :1.0000   Max.   :2.0000   Max.   :202.0  
+##      exang           oldpeak          slope             ca        
+##  Min.   :0.0000   Min.   :0.000   Min.   :0.000   Min.   :0.0000  
+##  1st Qu.:0.0000   1st Qu.:0.000   1st Qu.:1.000   1st Qu.:0.0000  
+##  Median :0.0000   Median :0.600   Median :1.000   Median :0.0000  
+##  Mean   :0.2963   Mean   :1.002   Mean   :1.407   Mean   :0.7243  
+##  3rd Qu.:1.0000   3rd Qu.:1.600   3rd Qu.:2.000   3rd Qu.:1.0000  
+##  Max.   :1.0000   Max.   :6.200   Max.   :2.000   Max.   :4.0000  
+##       thal           target      
+##  Min.   :0.000   Min.   :0.0000  
+##  1st Qu.:2.000   1st Qu.:0.0000  
+##  Median :2.000   Median :1.0000  
+##  Mean   :2.329   Mean   :0.5309  
+##  3rd Qu.:3.000   3rd Qu.:1.0000  
+##  Max.   :3.000   Max.   :1.0000
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{sum}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(heart\_train))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0
+\end{verbatim}
+
+\subsubsection{Question 2 (2 points)}\label{question-2-2-points}
+
+Analyze the prevalence of heart disease in the dataset.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{heart\_disease\_count }\OtherTok{\textless{}{-}} \FunctionTok{sum}\NormalTok{(heart\_train}\SpecialCharTok{$}\NormalTok{target }\SpecialCharTok{==} \DecValTok{1}\NormalTok{)}
+\NormalTok{total\_count }\OtherTok{\textless{}{-}} \FunctionTok{nrow}\NormalTok{(heart\_train)}
+\NormalTok{heart\_disease\_percentage }\OtherTok{\textless{}{-}}\NormalTok{ (heart\_disease\_count }\SpecialCharTok{/}\NormalTok{ total\_count) }\SpecialCharTok{*} \DecValTok{100}
+
+\FunctionTok{print}\NormalTok{(}\FunctionTok{paste}\NormalTok{(}\StringTok{"Number of people with heart disease:"}\NormalTok{, heart\_disease\_count))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "Number of people with heart disease: 129"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{print}\NormalTok{(}\FunctionTok{paste}\NormalTok{(}\StringTok{"Percentage of people with heart disease:"}\NormalTok{, }\FunctionTok{round}\NormalTok{(heart\_disease\_percentage, }\DecValTok{2}\NormalTok{), }\StringTok{"\%"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "Percentage of people with heart disease: 53.09 %"
+\end{verbatim}
+
+\subsubsection{Question 3 (2 points)}\label{question-3-2-points}
+
+Convert the target attribute to a factor.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{heart\_train}\SpecialCharTok{$}\NormalTok{target }\OtherTok{\textless{}{-}} \FunctionTok{factor}\NormalTok{(heart\_train}\SpecialCharTok{$}\NormalTok{target, }\AttributeTok{levels =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{0}\NormalTok{), }\AttributeTok{labels =} \FunctionTok{c}\NormalTok{(}\StringTok{"Yes"}\NormalTok{, }\StringTok{"No"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\subsubsection{Question 4 (8 points)}\label{question-4-8-points}
+
+Build and prune an rpart decision tree.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{2}\NormalTok{)}
+
+\CommentTok{\# Build the tree}
+\NormalTok{tree\_model }\OtherTok{\textless{}{-}} \FunctionTok{rpart}\NormalTok{(target }\SpecialCharTok{\textasciitilde{}}\NormalTok{ ., }\AttributeTok{data =}\NormalTok{ heart\_train, }\AttributeTok{method =} \StringTok{"class"}\NormalTok{)}
+
+\CommentTok{\# Find the optimal cp}
+\NormalTok{optimal\_cp }\OtherTok{\textless{}{-}}\NormalTok{ tree\_model}\SpecialCharTok{$}\NormalTok{cptable[}\FunctionTok{which.min}\NormalTok{(tree\_model}\SpecialCharTok{$}\NormalTok{cptable[,}\StringTok{"xerror"}\NormalTok{]),}\StringTok{"CP"}\NormalTok{]}
+
+\CommentTok{\# Prune the tree}
+\NormalTok{pruned\_tree }\OtherTok{\textless{}{-}} \FunctionTok{prune}\NormalTok{(tree\_model, }\AttributeTok{cp =}\NormalTok{ optimal\_cp)}
+
+\CommentTok{\# Plot the pruned tree}
+\FunctionTok{rpart.plot}\NormalTok{(pruned\_tree, }\AttributeTok{extra =} \DecValTok{1}\NormalTok{, }\AttributeTok{under =} \ConstantTok{TRUE}\NormalTok{, }\AttributeTok{cex =} \FloatTok{0.8}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Heartdiseaseanalysis_files/figure-latex/decision-tree-1.pdf}
+
+\subsubsection{Question 5 (2 points)}\label{question-5-2-points}
+
+considering the parameters there would be no changes required in the
+controls.
+
+\subsubsection{Question 6 (2 points)}\label{question-6-2-points}
+
+from what they could be they could be important factors to determine
+heart diseases based on age or cholestrol levels which then predicts the
+risk of heart diseases
+
+\subsubsection{Question 7 (10 points)}\label{question-7-10-points}
+
+Predict on the test set and create a confusion matrix.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Read and prepare test data}
+\NormalTok{heart\_test }\OtherTok{\textless{}{-}} \FunctionTok{read.csv}\NormalTok{(}\StringTok{"heart\_test.csv"}\NormalTok{)}
+\NormalTok{heart\_test}\SpecialCharTok{$}\NormalTok{target }\OtherTok{\textless{}{-}} \FunctionTok{factor}\NormalTok{(heart\_test}\SpecialCharTok{$}\NormalTok{target, }\AttributeTok{levels =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{0}\NormalTok{), }\AttributeTok{labels =} \FunctionTok{c}\NormalTok{(}\StringTok{"Yes"}\NormalTok{, }\StringTok{"No"}\NormalTok{))}
+
+\CommentTok{\# Predict on test data}
+\NormalTok{predictions }\OtherTok{\textless{}{-}} \FunctionTok{predict}\NormalTok{(pruned\_tree, heart\_test, }\AttributeTok{type =} \StringTok{"class"}\NormalTok{)}
+
+\CommentTok{\# Create confusion matrix}
+\NormalTok{conf\_matrix }\OtherTok{\textless{}{-}} \FunctionTok{table}\NormalTok{(}\AttributeTok{Predicted =}\NormalTok{ predictions, }\AttributeTok{Actual =}\NormalTok{ heart\_test}\SpecialCharTok{$}\NormalTok{target)}
+\FunctionTok{print}\NormalTok{(conf\_matrix)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##          Actual
+## Predicted Yes No
+##       Yes  28  5
+##       No    8 19
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Calculate accuracy}
+\NormalTok{accuracy }\OtherTok{\textless{}{-}} \FunctionTok{sum}\NormalTok{(}\FunctionTok{diag}\NormalTok{(conf\_matrix)) }\SpecialCharTok{/} \FunctionTok{sum}\NormalTok{(conf\_matrix)}
+\FunctionTok{print}\NormalTok{(}\FunctionTok{paste}\NormalTok{(}\StringTok{"Accuracy:"}\NormalTok{, }\FunctionTok{round}\NormalTok{(accuracy, }\DecValTok{4}\NormalTok{)))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "Accuracy: 0.7833"
+\end{verbatim}
+
+\subsubsection{Question 8 (2 points)}\label{question-8-2-points}
+
+Analyze False Positives vs False Negatives.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{false\_positives }\OtherTok{\textless{}{-}}\NormalTok{ conf\_matrix[}\StringTok{"Yes"}\NormalTok{, }\StringTok{"No"}\NormalTok{]}
+\NormalTok{false\_negatives }\OtherTok{\textless{}{-}}\NormalTok{ conf\_matrix[}\StringTok{"No"}\NormalTok{, }\StringTok{"Yes"}\NormalTok{]}
+
+\FunctionTok{print}\NormalTok{(}\FunctionTok{paste}\NormalTok{(}\StringTok{"False Positives:"}\NormalTok{, false\_positives))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "False Positives: 5"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{print}\NormalTok{(}\FunctionTok{paste}\NormalTok{(}\StringTok{"False Negatives:"}\NormalTok{, false\_negatives))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "False Negatives: 8"
+\end{verbatim}
+
+\subsubsection{Question 9 (8 points)}\label{question-9-8-points}
+
+Create an ROC curve.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Get probabilities}
+\NormalTok{probs }\OtherTok{\textless{}{-}} \FunctionTok{predict}\NormalTok{(pruned\_tree, heart\_test, }\AttributeTok{type =} \StringTok{"prob"}\NormalTok{)[,}\StringTok{"Yes"}\NormalTok{]}
+
+\CommentTok{\# Create prediction object}
+\NormalTok{pred }\OtherTok{\textless{}{-}} \FunctionTok{prediction}\NormalTok{(probs, heart\_test}\SpecialCharTok{$}\NormalTok{target)}
+
+\CommentTok{\# Create performance object}
+\NormalTok{perf }\OtherTok{\textless{}{-}} \FunctionTok{performance}\NormalTok{(pred, }\StringTok{"tpr"}\NormalTok{, }\StringTok{"fpr"}\NormalTok{)}
+
+\CommentTok{\# Create data frame for ggplot}
+\NormalTok{roc\_data }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{FPR =}\NormalTok{ perf}\SpecialCharTok{@}\NormalTok{x.values[[}\DecValTok{1}\NormalTok{]], }\AttributeTok{TPR =}\NormalTok{ perf}\SpecialCharTok{@}\NormalTok{y.values[[}\DecValTok{1}\NormalTok{]])}
+
+\CommentTok{\# Plot ROC curve}
+\FunctionTok{ggplot}\NormalTok{(roc\_data, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ FPR, }\AttributeTok{y =}\NormalTok{ TPR)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_line}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{geom\_abline}\NormalTok{(}\AttributeTok{intercept =} \DecValTok{0}\NormalTok{, }\AttributeTok{slope =} \DecValTok{1}\NormalTok{, }\AttributeTok{linetype =} \StringTok{"dashed"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"ROC Curve for Heart Disease Prediction"}\NormalTok{,}
+       \AttributeTok{x =} \StringTok{"False Positive Rate"}\NormalTok{, }
+       \AttributeTok{y =} \StringTok{"True Positive Rate"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Heartdiseaseanalysis_files/figure-latex/roc-curve-1.pdf}
+
+\subsubsection{Question 10 (2 points)}\label{question-10-2-points}
+
+Find the AUC of your ROC curve.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{auc }\OtherTok{\textless{}{-}} \FunctionTok{performance}\NormalTok{(pred, }\StringTok{"auc"}\NormalTok{)}\SpecialCharTok{@}\NormalTok{y.values[[}\DecValTok{1}\NormalTok{]]}
+\FunctionTok{print}\NormalTok{(}\FunctionTok{paste}\NormalTok{(}\StringTok{"AUC:"}\NormalTok{, }\FunctionTok{round}\NormalTok{(auc, }\DecValTok{4}\NormalTok{)))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "AUC: 0.8194"
+\end{verbatim}
+
+\subsubsection{Question 11 (5 points)}\label{question-11-5-points}
+
+Plot Accuracy vs Cutoff.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{acc }\OtherTok{\textless{}{-}} \FunctionTok{performance}\NormalTok{(pred, }\StringTok{"acc"}\NormalTok{)}
+\NormalTok{acc\_data }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{Cutoff =}\NormalTok{ acc}\SpecialCharTok{@}\NormalTok{x.values[[}\DecValTok{1}\NormalTok{]], }\AttributeTok{Accuracy =}\NormalTok{ acc}\SpecialCharTok{@}\NormalTok{y.values[[}\DecValTok{1}\NormalTok{]])}
+
+\FunctionTok{ggplot}\NormalTok{(acc\_data, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Cutoff, }\AttributeTok{y =}\NormalTok{ Accuracy)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_line}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Accuracy vs Cutoff"}\NormalTok{,}
+       \AttributeTok{x =} \StringTok{"Cutoff"}\NormalTok{, }
+       \AttributeTok{y =} \StringTok{"Accuracy"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Heartdiseaseanalysis_files/figure-latex/accuracy-vs-cutoff-1.pdf}
+
+\subsubsection{Question 12 (15 points)}\label{question-12-15-points}
+
+Tune a random forest model using the caret package.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{2}\NormalTok{)}
+
+\CommentTok{\# Define hyperparameters}
+\NormalTok{hyper\_grid }\OtherTok{\textless{}{-}} \FunctionTok{expand.grid}\NormalTok{(}
+  \AttributeTok{mtry =} \FunctionTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{, }\DecValTok{4}\NormalTok{, }\DecValTok{6}\NormalTok{),}
+  \AttributeTok{splitrule =} \StringTok{"gini"}\NormalTok{,}
+  \AttributeTok{min.node.size =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{5}\NormalTok{)}
+\NormalTok{)}
+
+\CommentTok{\# Define training control}
+\NormalTok{ctrl }\OtherTok{\textless{}{-}} \FunctionTok{trainControl}\NormalTok{(}
+  \AttributeTok{method =} \StringTok{"cv"}\NormalTok{,}
+  \AttributeTok{number =} \DecValTok{10}\NormalTok{,}
+  \AttributeTok{classProbs =} \ConstantTok{TRUE}\NormalTok{,}
+  \AttributeTok{summaryFunction =}\NormalTok{ twoClassSummary}
+\NormalTok{)}
+
+\CommentTok{\# Train the model}
+\NormalTok{rf\_model }\OtherTok{\textless{}{-}} \FunctionTok{train}\NormalTok{(}
+\NormalTok{  target }\SpecialCharTok{\textasciitilde{}}\NormalTok{ .,}
+  \AttributeTok{data =}\NormalTok{ heart\_train,}
+  \AttributeTok{method =} \StringTok{"ranger"}\NormalTok{,}
+  \AttributeTok{num.trees =} \DecValTok{500}\NormalTok{,}
+  \AttributeTok{importance =} \StringTok{"impurity"}\NormalTok{,}
+  \AttributeTok{tuneGrid =}\NormalTok{ hyper\_grid,}
+  \AttributeTok{trControl =}\NormalTok{ ctrl,}
+  \AttributeTok{metric =} \StringTok{"ROC"}
+\NormalTok{)}
+
+\CommentTok{\# Print best model}
+\FunctionTok{print}\NormalTok{(rf\_model}\SpecialCharTok{$}\NormalTok{bestTune)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   mtry splitrule min.node.size
+## 2    2      gini             3
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Predict on test set}
+\NormalTok{rf\_predictions }\OtherTok{\textless{}{-}} \FunctionTok{predict}\NormalTok{(rf\_model, heart\_test)}
+\NormalTok{rf\_probs }\OtherTok{\textless{}{-}} \FunctionTok{predict}\NormalTok{(rf\_model, heart\_test, }\AttributeTok{type =} \StringTok{"prob"}\NormalTok{)}
+
+\CommentTok{\# Create confusion matrix}
+\NormalTok{rf\_conf\_matrix }\OtherTok{\textless{}{-}} \FunctionTok{confusionMatrix}\NormalTok{(rf\_predictions, heart\_test}\SpecialCharTok{$}\NormalTok{target)}
+\FunctionTok{print}\NormalTok{(rf\_conf\_matrix)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Confusion Matrix and Statistics
+## 
+##           Reference
+## Prediction Yes No
+##        Yes  30  4
+##        No    6 20
+##                                           
+##                Accuracy : 0.8333          
+##                  95% CI : (0.7148, 0.9171)
+##     No Information Rate : 0.6             
+##     P-Value [Acc > NIR] : 8.893e-05       
+##                                           
+##                   Kappa : 0.6575          
+##                                           
+##  Mcnemar's Test P-Value : 0.7518          
+##                                           
+##             Sensitivity : 0.8333          
+##             Specificity : 0.8333          
+##          Pos Pred Value : 0.8824          
+##          Neg Pred Value : 0.7692          
+##              Prevalence : 0.6000          
+##          Detection Rate : 0.5000          
+##    Detection Prevalence : 0.5667          
+##       Balanced Accuracy : 0.8333          
+##                                           
+##        'Positive' Class : Yes             
+## 
+\end{verbatim}
+
+\subsubsection{Bonus Question (2 points)}\label{bonus-question-2-points}
+
+Compare the accuracy of your tuned Random Forest model to your pruned
+Decision Tree on the test sample.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{dt\_accuracy }\OtherTok{\textless{}{-}}\NormalTok{ accuracy  }\CommentTok{\# from Question 7}
+\NormalTok{rf\_accuracy }\OtherTok{\textless{}{-}}\NormalTok{ rf\_conf\_matrix}\SpecialCharTok{$}\NormalTok{overall[}\StringTok{"Accuracy"}\NormalTok{]}
+
+\FunctionTok{print}\NormalTok{(}\FunctionTok{paste}\NormalTok{(}\StringTok{"Decision Tree Accuracy:"}\NormalTok{, }\FunctionTok{round}\NormalTok{(dt\_accuracy, }\DecValTok{4}\NormalTok{)))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "Decision Tree Accuracy: 0.7833"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{print}\NormalTok{(}\FunctionTok{paste}\NormalTok{(}\StringTok{"Random Forest Accuracy:"}\NormalTok{, }\FunctionTok{round}\NormalTok{(rf\_accuracy, }\DecValTok{4}\NormalTok{)))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "Random Forest Accuracy: 0.8333"
+\end{verbatim}
+
+\end{document}

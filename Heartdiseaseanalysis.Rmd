@@ -1,0 +1,241 @@
+---
+title: 'STAT 7240: Homework 2'
+author: '[Your Name]'
+date: "September 25, 2024"
+output:
+  html_document:
+    df_print: paged
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+## Load Required Libraries
+
+```{r load-libraries, message=FALSE, warning=FALSE}
+library(tidyverse)
+library(rpart)
+library(rpart.plot)
+library(ROCR)
+library(caret)
+library(ranger)
+```
+
+## Problem Set
+
+### Question 1 (2 points)
+
+Read in the heart_train.csv data as a data-frame. Conduct a quick summary inspection of your data.
+
+```{r read-data}
+heart_train <- read.csv("heart_train.csv")
+
+# Summary inspection
+str(heart_train)
+summary(heart_train)
+sum(is.na(heart_train))
+```
+
+
+### Question 2 (2 points)
+
+Analyze the prevalence of heart disease in the dataset.
+
+```{r heart-disease-prevalence}
+heart_disease_count <- sum(heart_train$target == 1)
+total_count <- nrow(heart_train)
+heart_disease_percentage <- (heart_disease_count / total_count) * 100
+
+print(paste("Number of people with heart disease:", heart_disease_count))
+print(paste("Percentage of people with heart disease:", round(heart_disease_percentage, 2), "%"))
+```
+
+
+### Question 3 (2 points)
+
+Convert the target attribute to a factor.
+
+```{r convert-target}
+heart_train$target <- factor(heart_train$target, levels = c(1, 0), labels = c("Yes", "No"))
+```
+
+
+### Question 4 (8 points)
+
+Build and prune an rpart decision tree.
+
+```{r decision-tree}
+set.seed(2)
+
+# Build the tree
+tree_model <- rpart(target ~ ., data = heart_train, method = "class")
+
+# Find the optimal cp
+optimal_cp <- tree_model$cptable[which.min(tree_model$cptable[,"xerror"]),"CP"]
+
+# Prune the tree
+pruned_tree <- prune(tree_model, cp = optimal_cp)
+
+# Plot the pruned tree
+rpart.plot(pruned_tree, extra = 1, under = TRUE, cex = 0.8)
+```
+
+
+### Question 5 (2 points)
+considering the parameters there would be no changes required in the controls.
+
+
+### Question 6 (2 points)
+from what they could be they could be important factors to determine heart diseases based on age or cholestrol levels which then predicts the risk of heart diseases
+
+
+### Question 7 (10 points)
+
+Predict on the test set and create a confusion matrix.
+
+```{r test-predictions}
+# Read and prepare test data
+heart_test <- read.csv("heart_test.csv")
+heart_test$target <- factor(heart_test$target, levels = c(1, 0), labels = c("Yes", "No"))
+
+# Predict on test data
+predictions <- predict(pruned_tree, heart_test, type = "class")
+
+# Create confusion matrix
+conf_matrix <- table(Predicted = predictions, Actual = heart_test$target)
+print(conf_matrix)
+
+# Calculate accuracy
+accuracy <- sum(diag(conf_matrix)) / sum(conf_matrix)
+print(paste("Accuracy:", round(accuracy, 4)))
+```
+
+
+### Question 8 (2 points)
+
+Analyze False Positives vs False Negatives.
+
+```{r false-positives-negatives}
+false_positives <- conf_matrix["Yes", "No"]
+false_negatives <- conf_matrix["No", "Yes"]
+
+print(paste("False Positives:", false_positives))
+print(paste("False Negatives:", false_negatives))
+```
+
+
+### Question 9 (8 points)
+
+Create an ROC curve.
+
+```{r roc-curve}
+# Get probabilities
+probs <- predict(pruned_tree, heart_test, type = "prob")[,"Yes"]
+
+# Create prediction object
+pred <- prediction(probs, heart_test$target)
+
+# Create performance object
+perf <- performance(pred, "tpr", "fpr")
+
+# Create data frame for ggplot
+roc_data <- data.frame(FPR = perf@x.values[[1]], TPR = perf@y.values[[1]])
+
+# Plot ROC curve
+ggplot(roc_data, aes(x = FPR, y = TPR)) +
+  geom_line() +
+  geom_abline(intercept = 0, slope = 1, linetype = "dashed") +
+  labs(title = "ROC Curve for Heart Disease Prediction",
+       x = "False Positive Rate", 
+       y = "True Positive Rate") +
+  theme_minimal()
+```
+
+
+### Question 10 (2 points)
+
+Find the AUC of your ROC curve.
+
+```{r auc}
+auc <- performance(pred, "auc")@y.values[[1]]
+print(paste("AUC:", round(auc, 4)))
+```
+
+
+### Question 11 (5 points)
+
+Plot Accuracy vs Cutoff.
+
+```{r accuracy-vs-cutoff}
+acc <- performance(pred, "acc")
+acc_data <- data.frame(Cutoff = acc@x.values[[1]], Accuracy = acc@y.values[[1]])
+
+ggplot(acc_data, aes(x = Cutoff, y = Accuracy)) +
+  geom_line() +
+  labs(title = "Accuracy vs Cutoff",
+       x = "Cutoff", 
+       y = "Accuracy") +
+  theme_minimal()
+```
+
+
+### Question 12 (15 points)
+
+Tune a random forest model using the caret package.
+
+```{r random-forest}
+set.seed(2)
+
+# Define hyperparameters
+hyper_grid <- expand.grid(
+  mtry = c(2, 4, 6),
+  splitrule = "gini",
+  min.node.size = c(1, 3, 5)
+)
+
+# Define training control
+ctrl <- trainControl(
+  method = "cv",
+  number = 10,
+  classProbs = TRUE,
+  summaryFunction = twoClassSummary
+)
+
+# Train the model
+rf_model <- train(
+  target ~ .,
+  data = heart_train,
+  method = "ranger",
+  num.trees = 500,
+  importance = "impurity",
+  tuneGrid = hyper_grid,
+  trControl = ctrl,
+  metric = "ROC"
+)
+
+# Print best model
+print(rf_model$bestTune)
+
+# Predict on test set
+rf_predictions <- predict(rf_model, heart_test)
+rf_probs <- predict(rf_model, heart_test, type = "prob")
+
+# Create confusion matrix
+rf_conf_matrix <- confusionMatrix(rf_predictions, heart_test$target)
+print(rf_conf_matrix)
+```
+
+
+### Bonus Question (2 points)
+
+Compare the accuracy of your tuned Random Forest model to your pruned Decision Tree on the test sample.
+
+```{r compare-accuracies}
+dt_accuracy <- accuracy  # from Question 7
+rf_accuracy <- rf_conf_matrix$overall["Accuracy"]
+
+print(paste("Decision Tree Accuracy:", round(dt_accuracy, 4)))
+print(paste("Random Forest Accuracy:", round(rf_accuracy, 4)))
+```
